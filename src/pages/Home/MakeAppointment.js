@@ -1,5 +1,5 @@
 import React from "react";
-import doctor from "../../assets/images/doctor.png";
+import doctor from "../../assets/images/doctor-small.png";
 import bgDoctor from "../../assets/images/appointment.png";
 import MainButton from "../../shared/MainButton";
 
@@ -7,10 +7,10 @@ const MakeAppointment = () => {
   return (
     <section
       style={{ background: `url(${bgDoctor})` }}
-      className="flex justify-center items-center my-32"
+      className="flex justify-center items-center my-10"
     >
       <div className="flex-1 hidden lg:block">
-        <img className="-mt-20" src={doctor} alt="" />
+        <img className="-mt-16" src={doctor} alt="" />
       </div>
       <div className="flex-1 p-5">
         <h3 className="text-xl text-primary pb-3">Appointment</h3>

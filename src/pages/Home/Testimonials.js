@@ -33,7 +33,7 @@ const Testimonials = () => {
     },
   ];
   return (
-    <section className="px-14">
+    <section className="px-14 mt-16">
       <div className="flex justify-between">
         <div>
           <h4 className="text-xl text-primary font-bold ">Testimonial</h4>
