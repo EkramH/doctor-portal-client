@@ -4,6 +4,7 @@ import About from "./pages/About/About";
 import Appointment from "./pages/Appointment/Appointment";
 import Home from "./pages/Home/Home";
 import Navbar from "./shared/Navbar/Navbar";
+import "react-day-picker/dist/style.css";
 
 function App() {
   return (
