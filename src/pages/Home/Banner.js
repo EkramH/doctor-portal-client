@@ -1,6 +1,7 @@
 import React from "react";
 import chair from "../../assets/images/chair.png";
 import chairBg from "../../assets/images/bg.png";
+import MainButton from "../../shared/MainButton";
 
 const Banner = () => {
   return (
@@ -22,9 +23,7 @@ const Banner = () => {
                 assumenda excepturi exercitationem quasi. In deleniti eaque aut
                 repudiandae et a id nisi.
               </p>
-              <button class="btn bg-gradient-to-r from-secondary to-primary border-0 text-white font-bold">
-                Get Started
-              </button>
+              <MainButton>Get Start</MainButton>
             </div>
           </div>
         </div>
