@@ -1,7 +1,12 @@
 import React from "react";
+import { format } from "date-fns";
 
-const BookingModal = ({ treatment }) => {
+const BookingModal = ({ treatment, date }) => {
   const { name, slots } = treatment;
+
+  const handleBooking = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div>
@@ -17,12 +22,50 @@ const BookingModal = ({ treatment }) => {
           <h3 className="font-bold text-lg text-secondary">
             Booking For: {name}
           </h3>
-          <p className="py-4">{slots}</p>
-          <div className="modal-action">
-            <label htmlFor="booking-modal" className="btn">
-              Yay!
-            </label>
-          </div>
+          <form
+            onSubmit={handleBooking}
+            className="grid grid-cols-1 gap-3 justify-items-center pt-5"
+          >
+            <input
+              type="text"
+              value={format(date, "PP")}
+              disabled
+              className="input input-bordered w-full max-w-xs"
+            />
+            <select
+              name="slot"
+              className="select select-bordered w-full max-w-xs"
+            >
+              {slots.map((slot) => (
+                <option key={slot} value={slot}>
+                  {slot}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <input
+              type="submit"
+              value="Submit"
+              className="btn btn-secondary input-bordered w-full max-w-xs"
+            />
+          </form>
         </div>
       </div>
     </div>
