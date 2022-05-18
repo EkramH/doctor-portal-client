@@ -8,7 +8,7 @@ const AppointmentBanner = ({ date, setDate }) => {
     <div
       style={{
         backgroundImage: `url(${chairBg})`,
-        minHeight: "94vh",
+        minHeight: "80vh",
       }}
       className="hero min-h-screen"
     >
