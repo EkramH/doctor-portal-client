@@ -2,26 +2,32 @@ import React from "react";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import Loading from "../../shared/Loading";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [signInWithGoogle, userG, loadingG, errorG] = useSignInWithGoogle(auth);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    createUserWithEmailAndPassword(data.email, data.password);
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
+    console.log("update done");
+    navigate("/appointment");
   };
 
   if (error || errorG) {
@@ -30,11 +36,11 @@ const SignUp = () => {
     });
   }
 
-  if (loading || loadingG) {
+  if (loading || loadingG || updating) {
     return <Loading />;
   }
 
-  if (user || userG) {
+  if (user || userG || updateError) {
     console.log(user);
   }
   return (
