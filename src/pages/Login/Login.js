@@ -7,7 +7,7 @@ import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../../shared/Loading";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [signInWithGoogle, userG, loadingG, errorG] = useSignInWithGoogle(auth);
@@ -18,6 +18,10 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     console.log(data);
@@ -35,7 +39,7 @@ const Login = () => {
   }
 
   if (user || userG) {
-    console.log(user);
+    navigate(from, { replace: true });
   }
 
   return (
