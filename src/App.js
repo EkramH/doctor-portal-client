@@ -6,6 +6,8 @@ import Home from "./pages/Home/Home";
 import Navbar from "./shared/Navbar/Navbar";
 import "react-day-picker/dist/style.css";
 import Login from "./pages/Login/Login";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           element={<Appointment></Appointment>}
         ></Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

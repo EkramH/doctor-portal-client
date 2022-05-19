@@ -1,10 +1,17 @@
 import React from "react";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
+import Loading from "../../shared/Loading";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, userG, loadingG, errorG] = useSignInWithGoogle(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
   const {
     register,
     formState: { errors },
@@ -13,11 +20,23 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    signInWithEmailAndPassword(data.email, data.password);
   };
 
-  if (user) {
+  if (error || errorG) {
+    toast.error(`ERROR : ${error}`, {
+      toastId: "error1",
+    });
+  }
+
+  if (loading || loadingG) {
+    <Loading />;
+  }
+
+  if (user || userG) {
     console.log(user);
   }
+
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
