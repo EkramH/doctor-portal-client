@@ -8,6 +8,7 @@ import "react-day-picker/dist/style.css";
 import Login from "./pages/Login/Login";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           path="/appointment"
           element={<Appointment></Appointment>}
         ></Route>
+        <Route path="/signup" element={<SignUp></SignUp>}></Route>
       </Routes>
       <ToastContainer />
     </div>

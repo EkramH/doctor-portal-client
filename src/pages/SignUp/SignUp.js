@@ -1,18 +1,18 @@
 import React from "react";
 import {
-  useSignInWithEmailAndPassword,
+  useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
-import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
-import Loading from "../../shared/Loading";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import auth from "../../firebase.init";
+import Loading from "../../shared/Loading";
 
-const Login = () => {
+const SignUp = () => {
   const [signInWithGoogle, userG, loadingG, errorG] = useSignInWithGoogle(auth);
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   const {
     register,
     formState: { errors },
@@ -21,7 +21,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    signInWithEmailAndPassword(data.email, data.password);
+    createUserWithEmailAndPassword(data.email, data.password);
   };
 
   if (error || errorG) {
@@ -37,13 +37,36 @@ const Login = () => {
   if (user || userG) {
     console.log(user);
   }
-
   return (
     <div className="mt-10 flex justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="text-center text-2xl font-bold">Login</h2>
+          <h2 className="text-center text-2xl font-bold">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="input input-bordered w-full max-w-xs"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Name is required!",
+                  },
+                })}
+              />
+              <label className="label">
+                {errors.name?.type === "required" && (
+                  <span className="label-text-alt text-red-500">
+                    {errors.name.message}
+                  </span>
+                )}
+              </label>
+            </div>
+
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -113,15 +136,15 @@ const Login = () => {
             <input
               className="btn btn-outline font-bold btn-secondary mt-6 w-full max-w-xs"
               type="submit"
-              value="Login"
+              value="Sign Up"
             />
             <p className="mt-5 text-center">
-              New to Doctor Portal?{" "}
+              Already have an account?{" "}
               <Link
                 className="text-secondary underline decoration-solid"
-                to="/signup"
+                to="/login"
               >
-                Create an account.
+                Login to your account.
               </Link>
             </p>
           </form>
@@ -138,4 +161,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
