@@ -28,7 +28,7 @@ const BookingModal = ({ treatment, date }) => {
           >
             <input
               type="text"
-              value={format(date, "PP")}
+              value={format(date || new Date(), "PP")}
               disabled
               className="input input-bordered w-full max-w-xs"
             />
