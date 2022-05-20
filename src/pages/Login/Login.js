@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   //Warning: update a component (`BrowserRouter`) while rendering a different component ('login)
-  //Solved with useEffect..
+  //Solved with useEffect...
   useEffect(() => {
     if (user || userG) {
       navigate(from, { replace: true });

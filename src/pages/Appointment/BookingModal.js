@@ -2,6 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { toast } from "react-toastify";
 
 const BookingModal = ({ treatment, setTreatment, date }) => {
   const [user, loading, error] = useAuthState(auth);
@@ -32,7 +33,18 @@ const BookingModal = ({ treatment, setTreatment, date }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.success) {
+          toast.success(`${name} booked is set, ${formattedDate}} at ${slot}`, {
+            toastId: "success1",
+          });
+        } else {
+          toast.error(
+            `${name} already booked on ${data.booking?.date} at ${data.booking?.slot}`,
+            {
+              toastId: "error1",
+            }
+          );
+        }
         setTreatment(null);
       });
   };
