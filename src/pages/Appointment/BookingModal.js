@@ -1,7 +1,10 @@
 import React from "react";
 import { format } from "date-fns";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const BookingModal = ({ treatment, date }) => {
+  const [user, loading, error] = useAuthState(auth);
   const { name, slots } = treatment;
 
   const handleBooking = (event) => {
@@ -30,29 +33,31 @@ const BookingModal = ({ treatment, date }) => {
               type="text"
               value={format(date || new Date(), "PP")}
               disabled
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs font-semibold"
             />
             <select
               name="slot"
               className="select select-bordered w-full max-w-xs"
             >
-              {slots.map((slot) => (
-                <option key={slot} value={slot}>
+              {slots.map((slot, index) => (
+                <option key={index} value={slot}>
                   {slot}
-                </option>
+                </option> //use index as unique 'key' prop
               ))}
             </select>
             <input
               type="text"
               name="name"
-              placeholder="Your Name"
-              className="input input-bordered w-full max-w-xs"
+              value={user?.displayName || ""} //undefined value to definer value error solved with || "".
+              disabled
+              className="input input-bordered w-full max-w-xs font-semibold"
             />
             <input
               type="email"
               name="email"
-              placeholder="Email Address"
-              className="input input-bordered w-full max-w-xs"
+              value={user?.email || ""} //undefined value to definer value error solved with || "".
+              disabled
+              className="input input-bordered w-full max-w-xs font-semibold"
             />
             <input
               type="text"

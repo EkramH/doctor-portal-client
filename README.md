@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Doctor Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Doctor portal is a react app practice project.
 
 ## Available Scripts
 

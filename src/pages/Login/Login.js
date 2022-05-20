@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
@@ -28,6 +28,14 @@ const Login = () => {
     signInWithEmailAndPassword(data.email, data.password);
   };
 
+  //Warning: update a component (`BrowserRouter`) while rendering a different component ('login)
+  //Solved with useEffect..
+  useEffect(() => {
+    if (user || userG) {
+      navigate(from, { replace: true });
+    }
+  }, [from, navigate, user, userG]);
+
   if (error || errorG) {
     toast.error(`ERROR : ${error}`, {
       toastId: "error1",
@@ -36,10 +44,6 @@ const Login = () => {
 
   if (loading || loadingG) {
     return <Loading />;
-  }
-
-  if (user || userG) {
-    navigate(from, { replace: true });
   }
 
   return (
