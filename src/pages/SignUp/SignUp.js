@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
+import useToken from "../../hooks/useToken";
 import Loading from "../../shared/Loading";
 
 const SignUp = () => {
@@ -22,14 +23,14 @@ const SignUp = () => {
     handleSubmit,
   } = useForm();
 
+  const [token] = useToken(user || userG);
+
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
-    console.log("update done");
-    navigate("/appointment");
   };
 
-  if (error || errorG) {
+  if (error || errorG || updateError) {
     toast.error(`ERROR : ${error}`, {
       toastId: "error1",
     });
@@ -39,8 +40,13 @@ const SignUp = () => {
     return <Loading />;
   }
 
-  if (user || userG || updateError) {
+  if (user || userG) {
     console.log(user);
+    // navigate("/appointment");
+  }
+
+  if (token) {
+    navigate("/appointment");
   }
   return (
     <div className="mt-10 flex justify-center items-center">
