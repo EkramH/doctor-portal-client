@@ -9,6 +9,7 @@ const Navbar = () => {
 
   const logout = () => {
     signOut(auth);
+    localStorage.removeItem("accessToken"); //remove token after signout
   };
   const menuItems = (
     <>
