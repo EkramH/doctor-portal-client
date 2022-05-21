@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import Loading from "../../shared/Loading";
 import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const [signInWithGoogle, userG, loadingG, errorG] = useSignInWithGoogle(auth);
@@ -19,22 +20,23 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  const [token] = useToken(user || userG);
+
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
-    console.log(data);
     signInWithEmailAndPassword(data.email, data.password);
   };
 
   //Warning: update a component (`BrowserRouter`) while rendering a different component ('login)
   //Solved with useEffect...
   useEffect(() => {
-    if (user || userG) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [from, navigate, user, userG]);
+  }, [from, navigate, token]);
 
   if (error || errorG) {
     toast.error(`ERROR : ${error}`, {
